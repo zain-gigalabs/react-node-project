@@ -1,13 +1,17 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const Connection = async () => {
-    try {
-        const URL = '';
-        await mongoose.connect(URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
-        console.log('Successfully connected to mongoDB');
-    } catch (e) {
-        console.log('Error while connecting to mongoDB', e);
+const Connection = mongoose.connect('mongodb://localhost:27017/usersdb',
+    {
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true
     }
-}
+);
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", function () {
+    console.log("Connected successfully");
+});
 
 export default Connection;

@@ -1,7 +1,9 @@
 import User from "../models/models.js";
+import colors from 'colors';
 
 export const createUser = async (request, response) => {
-    const user = await new User(request.query);
+    // console.log(colors.bgGreen(request.body));
+    const user = await new User(request.body);
     try {
         await user.save();
         response.status(200).json(user);

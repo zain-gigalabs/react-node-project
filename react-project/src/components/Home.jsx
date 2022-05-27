@@ -1,6 +1,6 @@
 import React from "react";
 
-function Home() {
+function Home(props) {
   return (
     <>
       <div className="add-to-cart">
@@ -18,7 +18,13 @@ function Home() {
             <span>Price: $1000.00</span>
           </div>
           <div className="btn-wrapper item">
-            <button>Add To Cart</button>
+            <button
+              onClick={() =>
+                props.addToCartHandler({ price: 1000, name: "Iphone 13" })
+              }
+            >
+              Add To Cart
+            </button>
           </div>
         </div>
       </div>

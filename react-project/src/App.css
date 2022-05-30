@@ -71,6 +71,11 @@
   border-radius: 50%;
   color: #fff;
 }
+
+button.remove-cart-btn {
+  background-color: rebeccapurple;
+  margin-top: 8px;
+}
 /*  */
 @keyframes App-logo-spin {
   from {

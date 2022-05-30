@@ -1,12 +1,9 @@
 import React from "react";
 
 function Home(props) {
+  console.warn("home", props);
   return (
     <>
-      <div className="add-to-cart">
-        <span className="cart-count"></span>
-        <img src="https://static.vecteezy.com/system/resources/thumbnails/000/496/007/small/Ecommerce_998.jpg" />
-      </div>
       <div>
         <h1>Home Component</h1>
         <div className="cart-wrapper">
@@ -24,6 +21,13 @@ function Home(props) {
               }
             >
               Add To Cart
+            </button>
+
+            <button
+              className="remove-cart-btn"
+              onClick={() => props.removeToCartHandler()}
+            >
+              Remove To Cart
             </button>
           </div>
         </div>

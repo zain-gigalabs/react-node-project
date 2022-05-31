@@ -1,16 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { composeWithDevTools } from "redux-devtools-extension";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./service/reducers/index";
-const store = createStore(rootReducer);
+import { loggerMiddleware } from "./middleware/middleware";
 // console.warn(store.getState());
 
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const middleware = applyMiddleware(loggerMiddleware);
+
+const store = createStore(rootReducer, composeWithDevTools(middleware));
+
 root.render(
   <Provider store={store}>
     <App />

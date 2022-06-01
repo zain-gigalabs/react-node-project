@@ -8,11 +8,12 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./service/reducers/index";
 import { loggerMiddleware } from "./middleware/middleware";
+import thunk from "redux-thunk";
 // console.warn(store.getState());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const middleware = applyMiddleware(loggerMiddleware);
+const middleware = applyMiddleware(loggerMiddleware, thunk);
 
 const store = createStore(rootReducer, composeWithDevTools(middleware));
 

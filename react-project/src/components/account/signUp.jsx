@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { createUser } from "../../service/api";
+import { useDispatch, useSelector } from "react-redux";
+import register from "../../service/actions/auth";
+// import { createUser } from "../../service/api";
 import {
   Box,
   Button,
@@ -25,12 +27,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = () => {
+const SignUp = (props) => {
+  console.warn(props);
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +48,7 @@ const SignUp = () => {
       email: email,
       password: password,
     };
-    await createUser(userObject);
+    dispatch(register(userObject));
   };
 
   return (

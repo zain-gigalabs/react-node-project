@@ -4,7 +4,7 @@ import SignUp from "../components/account/signUp";
 import { addUser } from "../service/actions/actions";
 const mapStateToProps = (state) => {
   return {
-    profile: state.user,
+    profile: state.user.profile,
   };
 };
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import register from "../../service/actions/auth";
 // import { createUser } from "../../service/api";
 import {
@@ -38,7 +38,7 @@ const SignUp = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       alert("Password not matched");
       return;
     }

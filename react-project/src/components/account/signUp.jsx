@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import register from "../../service/actions/auth";
+import { Formik, Form, Field, useFormik } from "formik";
+import * as Yup from "yup";
 // import { createUser } from "../../service/api";
 import {
   Box,
@@ -27,6 +29,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const SignupSchema = Yup.object().shape({
+  username: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+});
+
 const SignUp = (props) => {
   console.warn(props);
   const [username, setUserName] = useState("");
@@ -51,18 +60,34 @@ const SignUp = (props) => {
     dispatch(register(userObject));
   };
 
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+    },
+    validationSchema: SignupSchema,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <Box>
       <Typography variant="h4" className={classes.root}>
         SignUp Form
       </Typography>
+
       <form className={classes.root}>
         <TextField
+          name="username"
           label="Username"
           variant="filled"
-          onChange={(e) => setUserName(e.target.value)}
-          required
+          // onChange={(e) => setUserName(e.target.value)}
+          onChange={formik.handleChange}
+          value={formik.values.username}
+          error={formik.touched.username}
+          helperText={formik.touched.username}
         />
+
         <TextField
           label="Email"
           variant="filled"

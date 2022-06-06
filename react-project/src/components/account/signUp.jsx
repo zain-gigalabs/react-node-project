@@ -114,12 +114,7 @@ const SignUp = () => {
           }
         />
         <div>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            // onClick={handleSubmit}
-          >
+          <Button type="submit" variant="contained" color="primary">
             Signup
           </Button>
         </div>

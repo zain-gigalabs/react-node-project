@@ -3,7 +3,7 @@ import axios from "axios";
 const URL = "http://localhost:8000/api";
 
 const createUser = async (post) => {
-  console.log(post);
+  // console.log(post);
   try {
     return await axios.post(`${URL}/add_user`, post);
   } catch (e) {

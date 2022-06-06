@@ -1,8 +1,9 @@
-import React, { Suspense } from "react";
+// import React, { Suspense } from "react";
+import React from "react";
 import "./App.css";
 
 import SignUp from "./components/account/signUp";
-import { ValidationSchemaExample } from "./components/practice/formik";
+// import { ValidationSchemaExample } from "./components/practice/formik";
 // import Practice from "./components/practice/practice";
 // import Hooks from "./components/practice/hooks";
 // import ExampleState from "./components/practice/exampleState";
@@ -19,8 +20,8 @@ import { ValidationSchemaExample } from "./components/practice/formik";
 function App() {
   return (
     <>
-
       <SignUp />
+      {/* <ValidationSchemaExample /> */}
       {/* <SignUpContainer /> */}
       {/* <HeaderContainer /> */}
       {/* <HomeContainer /> */}

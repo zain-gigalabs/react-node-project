@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import register from "../../service/actions/auth";
-import { Formik, Form, Field, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 // import { createUser } from "../../service/api";
 import {
@@ -30,43 +29,34 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignupSchema = Yup.object().shape({
+  email: Yup.string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
   username: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
+  password: Yup.string("Enter your password")
+    .min(6, "Password should be of minimum 6 characters length")
+    .required("Password is required"),
+  confirm_password: Yup.string()
+    .required("Please confirm your password")
+    .oneOf([Yup.ref("password")], "Passwords do not match"),
 });
 
-const SignUp = (props) => {
-  console.warn(props);
-  const [username, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+const SignUp = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Password not matched");
-      return;
-    }
-
-    const userObject = {
-      username: username,
-      email: email,
-      password: password,
-    };
-    dispatch(register(userObject));
-  };
-
   const formik = useFormik({
     initialValues: {
+      email: "",
       username: "",
+      password: "",
+      confirm_password: "",
     },
     validationSchema: SignupSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      dispatch(register(values));
     },
   });
 
@@ -76,45 +66,59 @@ const SignUp = (props) => {
         SignUp Form
       </Typography>
 
-      <form className={classes.root}>
+      <form className={classes.root} onSubmit={formik.handleSubmit}>
+        <TextField
+          fullWidth
+          id="email"
+          name="email"
+          label="Email"
+          variant="filled"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+        />
         <TextField
           name="username"
           label="Username"
           variant="filled"
-          // onChange={(e) => setUserName(e.target.value)}
-          onChange={formik.handleChange}
+          id="username"
           value={formik.values.username}
-          error={formik.touched.username}
-          helperText={formik.touched.username}
-        />
-
-        <TextField
-          label="Email"
-          variant="filled"
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-          required
+          onChange={formik.handleChange}
+          error={formik.touched.username && Boolean(formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
         />
         <TextField
           label="Password"
           variant="filled"
           type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          required
+          id="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
         />
         <TextField
           label="Confirm Password"
           variant="filled"
           type="password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
+          id="confirm_password"
+          value={formik.values.confirm_password}
+          onChange={formik.handleChange}
+          error={
+            formik.touched.confirm_password &&
+            Boolean(formik.errors.confirm_password)
+          }
+          helperText={
+            formik.touched.confirm_password && formik.errors.confirm_password
+          }
         />
         <div>
           <Button
             type="submit"
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
           >
             Signup
           </Button>

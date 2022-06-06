@@ -12,9 +12,11 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
-    hash: true,
   },
   createdDate: {
+    type: Date,
+  },
+  updatedDate: {
     type: Date,
   },
 });

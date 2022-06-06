@@ -1,5 +1,10 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL } from "../contants";
-import createUser from "../api";
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+} from "../contants";
+import { createUser, login } from "../api";
 
 /*promise.then(
   (response) => { 
@@ -10,10 +15,9 @@ import createUser from "../api";
   }
 ); */
 
-const register = (userObj) => (dispatch) => {
+export const register = (userObj) => (dispatch) => {
   return createUser(userObj).then(
     (response) => {
-      console.log(response);
       dispatch({
         type: REGISTER_SUCCESS,
       });
@@ -22,6 +26,25 @@ const register = (userObj) => (dispatch) => {
     (error) => {
       dispatch({
         type: REGISTER_FAIL,
+      });
+      return Promise.reject();
+    }
+  );
+};
+
+export const loginUser = (email, password) => (dispatch) => {
+  return login(email, password).then(
+    (response) => {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { user: response.data },
+      });
+
+      return Promise.resolve();
+    },
+    (error) => {
+      dispatch({
+        type: LOGIN_FAIL,
       });
       return Promise.reject();
     }
@@ -40,5 +63,3 @@ const register = (userObj) => (dispatch) => {
     });
   }
 }; */
-
-export default register;

@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
-import register from "../../service/actions/auth";
+import { register } from "../../service/actions/auth";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import { createUser } from "../../service/api";
+import { Link } from "react-router-dom";
+
 import {
   Box,
   Button,
@@ -25,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiButtonBase-root": {
       margin: theme.spacing(2),
     },
+  },
+  link: {
+    textDecoration: "none",
+    color: "inherit",
   },
 }));
 
@@ -117,6 +122,9 @@ const SignUp = () => {
           <Button type="submit" variant="contained" color="primary">
             Signup
           </Button>
+          <Link to="/login" className={classes.link}>
+            <Button variant="contained">Login</Button>
+          </Link>
         </div>
       </form>
     </Box>

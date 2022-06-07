@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../service/actions/auth";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -39,6 +39,7 @@ const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -46,15 +47,13 @@ const Login = () => {
     },
     validationSchema: LoginSchema,
     onSubmit: (values) => {
-      dispatch(loginUser(values.email, values.password))
-        .then(() => {
-          history.push("/profile");
-        })
-        .catch(() => {
-          alert("wrong");
-        });
+      dispatch(loginUser(values.email, values.password));
     },
   });
+
+  // if (isLoggedIn) {
+  //   history.push("/profile");
+  // }
   return (
     <Box>
       <Typography variant="h4" className={classes.root}>

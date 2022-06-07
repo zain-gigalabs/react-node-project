@@ -5,6 +5,9 @@ import {
   LOGIN_FAIL,
 } from "../contants";
 import { createUser, login } from "../api";
+import { createBrowserHistory } from "history";
+
+const history = createBrowserHistory();
 
 /*promise.then(
   (response) => { 
@@ -39,6 +42,8 @@ export const loginUser = (email, password) => (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: { user: response.data },
       });
+      history.push("/profile");
+      window.location.reload();
 
       return Promise.resolve();
     },
@@ -46,6 +51,7 @@ export const loginUser = (email, password) => (dispatch) => {
       dispatch({
         type: LOGIN_FAIL,
       });
+      alert("Incorrect credientials");
       return Promise.reject();
     }
   );
